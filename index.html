@@ -1,0 +1,60 @@
+<html>
+ <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- Bootstrap CSS library -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+        <!-- Container CSS File -->
+    <link rel="stylesheet" href="http://site302.digitalskillsacademy.me/lms/mwa/css/todo.css">
+</head>
+<body>
+<!-- Angular App -->
+<div class="container" ng-app="ToDoApp" ng-controller="todoControl";>
+<div class="todo-list" ng-controller="todoControl">
+    <div class="todo-header">
+<p class="text-center">JR Assessment 2 Angular JS (To Do App)</p>
+</div>
+<br>
+<!-- Angular Application Model -->
+<div class="add-todo">
+<form ng-submit="todoAdd()">
+    <input type="text" ng-model="todoInput" size="50" placeholder="Type Item Here">
+    <input type="submit" value="Add New Item">
+</form>
+
+<br>
+<!-- Angular Data Binding -->
+<div ng-repeat="x in todoList">
+    <input type="checkbox" ng-model="x.done"> <span ng-bind="x.todoText"></span>
+</div>
+<br>
+<br>
+<p><button ng-click="remove()">Remove marked items</button></p>
+
+</div>
+</div>
+</div>
+<!-- Angular Controllers & Scopes -->
+<script>
+var app = angular.module('ToDoApp',[]); 
+app.controller('todoControl', function($scope) {
+    $scope.todoList = [{todoText:'Based on an MVC pattern', done:false}];
+
+    $scope.todoAdd = function() {
+        $scope.todoList.push({todoText:$scope.todoInput, done:false});
+        $scope.todoInput = "";
+    };
+
+    $scope.remove = function() {
+        var oldList = $scope.todoList;
+        $scope.todoList = [];
+        angular.forEach(oldList, function(x) {
+            if (!x.done) $scope.todoList.push(x);
+        });
+    };
+});
+  </script>
+  <!-- Angular CDN & Script -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+     <script src="http://site302.digitalskillsacademy.me/lms/mwa/js/TodoController.js"></script>
+  </body>
+</html>
